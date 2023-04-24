@@ -17,12 +17,12 @@ const StartScreenContent = () => {
                 </div>
             </div>
             <div className='flex mt-16 justify-center'>
-                <div className='bg-orange-600 flex h-16 w-56 rounded-md'>
+                <a href='/Menu' className='bg-orange-600 flex h-16 w-56 rounded-md'>
                     <div className='w-12 h-12 ml-2 my-2'>
                         <img src={digid}/>
                     </div>
                     <p className='font-sans ml-3 mt-5 font-medium'>Inloggen met DigiD</p>
-                </div>
+                </a>
             </div>
 
         </div>
