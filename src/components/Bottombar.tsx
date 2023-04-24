@@ -1,9 +1,9 @@
 import '../index.css'
 
-function Bottombar() {
+const Bottombar = () => {
 
   return (
-    <div id='bottombar' className='h-48 mt-48'>
+    <div id='bottombar' className='h-48 mt-44'>
       
     </div>
   )
