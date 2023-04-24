@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import './index.css'
+import Topbar from './components/topbar'
+import Bottombar from './components/Bottombar'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div>
-      <h1 className='font-semibold text-7xl'>Hello, World!</h1>
+      <Topbar />
+      <Bottombar />
     </div>
   )
 }
