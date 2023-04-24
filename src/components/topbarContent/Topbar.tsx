@@ -1,5 +1,5 @@
 import '../index.css'
-import TopBarContentStart from './TopBarContentStart'
+import TopBarContentStart from '../TopBarContentStart'
 
 const Topbar = () => {
 
