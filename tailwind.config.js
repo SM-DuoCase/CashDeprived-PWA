@@ -8,7 +8,6 @@ export default {
         'cardGreen': '#165400',
       },
       boxShadow: {
-      
         'btn': '0 6px 0px 0 rgba(18, 65, 0, 1)',
         'btnClick': '0 4px 0px 0 rgba(18, 65, 0, 1)',
       }
