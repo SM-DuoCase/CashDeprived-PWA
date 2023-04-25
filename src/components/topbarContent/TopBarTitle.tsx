@@ -1,6 +1,6 @@
 import "../../index.css"
 
-const TopBarContentStart = () => {
+const TopBarTitle = () => {
 
     return (
 
@@ -14,4 +14,4 @@ const TopBarContentStart = () => {
     )
 }
 
-export default TopBarContentStart
+export default TopBarTitle

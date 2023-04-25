@@ -3,7 +3,7 @@ import '../index.css'
 const MenuCard = (imageSource: string, CardName: string) => {
 
     return (
-        <div className="rounded-lg shadow border-2 border-[#165400] bg-[#165400]">
+        <div className="rounded-lg shadow border-2 border-cardGreen bg-cardGreen">
             <a href={"/"+CardName}>
                 <img className="rounded-t-lg" src={imageSource} alt="" />
             </a>
