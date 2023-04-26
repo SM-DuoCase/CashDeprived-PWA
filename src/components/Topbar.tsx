@@ -12,7 +12,6 @@ const Topbar = () => {
     TopbarContent = TopBarTitle()
   }
 
-
   return (
     <div id='topbar' className='w-full'>
         {TopbarContent}
