@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from
   'react-router-dom';
 import Topbar from './components/Topbar'
 import Bottombar from './components/Bottombar'
-import StartScreenContent from './components/StartScreenContent';
+import StartScreenContent from './components/StartScreen';
 import Menu from './components/Menu';
 
 function App() {
