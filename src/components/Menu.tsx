@@ -14,7 +14,6 @@ const Menu = () => {
         Cards.push(
             MenuCard(Images[index], Games[index])
         )
-
     }
 
     return (
