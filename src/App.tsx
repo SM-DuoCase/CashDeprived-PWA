@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import './index.css'
-import { BrowserRouter as Router, Routes, Route } from
-  'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Topbar from './components/Topbar'
 import Bottombar from './components/Bottombar'
 import StartScreenContent from './components/StartScreen';
 import Menu from './components/Menu';
+import BlackjackScreen from './components/BlackjackScreen';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +21,7 @@ function App() {
         </Routes>
         <Bottombar />
       </div>
+
     </Router>
 
 
