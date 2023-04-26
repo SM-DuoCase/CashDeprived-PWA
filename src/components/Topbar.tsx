@@ -1,15 +1,21 @@
 import '../index.css'
-import StartScreen from './StartScreen'
+import TopBarTitle from './topbarContent/TopBarTitle'
+import TopBarProgress from './topbarContent/TopBarProgress';
 
-function Topbar() {
+const Topbar = () => {
+
+  let TopbarContent;
+  if (window.location.pathname.toLocaleLowerCase() == "/Menu".toLocaleLowerCase()) {
+    TopbarContent = TopBarProgress()
+  }
+  else {
+    TopbarContent = TopBarTitle()
+  }
+
 
   return (
-    <div id='topbar' className='h-48'>
-      {/* Container for different headers*/}
-      <div>
-        {/* if the first time login show this */}
-        <StartScreen />
-      </div>
+    <div id='topbar' className='w-full'>
+        {TopbarContent}
     </div>
   )
 }
