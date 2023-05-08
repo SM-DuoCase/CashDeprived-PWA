@@ -18,6 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element={<StartScreenContent />} />
           <Route path='/menu' element={<Menu />} />
+          <Route path='/blackjack' element={<BlackjackScreen />} />
         </Routes>
         <Bottombar />
       </div>
