@@ -6,6 +6,7 @@ import Bottombar from './components/Bottombar'
 import StartScreenContent from './components/StartScreen';
 import Menu from './components/Menu';
 import BlackjackScreen from './components/BlackjackScreen';
+import LossesScreen from './components/LossesScreen';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,7 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<StartScreenContent />} />
           <Route path='/menu' element={<Menu />} />
-          <Route path='/blackjack' element={<BlackjackScreen />} />
+          <Route path='/losses' element={<LossesScreen />} />
         </Routes>
         <Bottombar />
       </div>
