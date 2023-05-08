@@ -1,9 +1,12 @@
 import { Card, CardType } from "./CardModel"
 
 var deck:Card[] = []
-var cardsPlayer: Card[] = []
-var cardsDealer: Card[] = []
+export var cardsPlayer: Card[] = []
+export var cardsDealer: Card[] = []
 
+export const event = new Event("updateUI");
+
+document.dispatchEvent(event)
 
 function getCardValue(type: number):number {
     if (type < 11) {
@@ -15,7 +18,7 @@ function getCardValue(type: number):number {
 }
 
 
-function countHandValue(cards:Card[]):number {
+export function countHandValue(cards:Card[]):number {
     let sum = 0;
     let aceCount = 0;
     
@@ -58,6 +61,7 @@ function giveCard(cards: Card[], amount:number, flipped:boolean): Card[] {
         deck.splice(random, 1)
         _card.flipped = flipped
         cards.push(_card)
+        document.dispatchEvent(event)
         console.log(_card.symbol, _card.type)
     }
     return cards
