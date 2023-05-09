@@ -1,6 +1,6 @@
 import { Card, CardType } from "./CardModel"
 
-var deck:Card[] = []
+var deck: Card[] = []
 export var cardsPlayer: Card[] = []
 export var cardsDealer: Card[] = []
 
@@ -8,37 +8,37 @@ export const event = new Event("updateUI");
 
 document.dispatchEvent(event)
 
-function getCardValue(type: number):number {
+function getCardValue(type: number): number {
     if (type < 11) {
         return type
     }
-     else  {
+    else {
         return 10
-     }
+    }
 }
 
 
-export function countHandValue(cards:Card[]):number {
+export function countHandValue(cards: Card[]): number {
     let sum = 0;
     let aceCount = 0;
-    
+
     for (let i = 0; i < cards.length; i++) {
         if (cards[i].type == 1) {
             aceCount++;
         }
         sum += cards[i].value;
     }
-    
+
     while (aceCount > 0 && sum + 10 <= 21) {
         sum += 10;
         aceCount--;
     }
-  
-  return sum;
+
+    return sum;
 }
 
 function generateDeck(): Card[] {
-    var _deck:Card[] = []
+    var _deck: Card[] = []
     for (let typeIndex = 0; typeIndex < 4; typeIndex++) {
         for (let index = 1; index < 14; index++) {
             const card: Card = {
@@ -54,7 +54,7 @@ function generateDeck(): Card[] {
     return _deck
 }
 
-function giveCard(cards: Card[], amount:number, flipped:boolean): Card[] {
+function giveCard(cards: Card[], amount: number, flipped: boolean): Card[] {
     for (let i = 0; i < amount; i++) {
         let random = Math.floor(Math.random() * deck.length)
         let _card = deck[random];
@@ -91,31 +91,35 @@ export function startRound() {
 }
 
 function dealerMove() {
-    giveCard(cardsDealer, 1, true)
-    console.log("dealer: ", countHandValue(cardsDealer))
-    while (countHandValue(cardsDealer) < 17)
-    {
+    setTimeout(() => {
         giveCard(cardsDealer, 1, true)
         console.log("dealer: ", countHandValue(cardsDealer))
-    }
+        setTimeout(() => {
+            while (countHandValue(cardsDealer) < 17) {
+                giveCard(cardsDealer, 1, true)
+                console.log("dealer: ", countHandValue(cardsDealer))
+            }
+            gameStatus()
+        }, 1000);
+    }, 1000);
     return
 }
 
+export function gameStatus(){
+    return false;
+}
 
-export function playerMove():boolean {
-    if (countHandValue(cardsPlayer) > 21)
-    {
+export function playerMove(): boolean {
+    if (countHandValue(cardsPlayer) > 21) {
         console.log("Bust!" + countHandValue(cardsPlayer));
         //stand(cardsDealer, cardsPlayer)
         return false
     }
-    else if (countHandValue(cardsPlayer) < 21)
-    {
+    else if (countHandValue(cardsPlayer) < 21) {
         console.log("Current: " + countHandValue(cardsPlayer))
         return true
     }
-    else if (countHandValue(cardsPlayer) == 21)
-    {
+    else if (countHandValue(cardsPlayer) == 21) {
         console.log("Blackjack!" + countHandValue(cardsPlayer));
         //stand(cardsDealer, cardsPlayer)
         return false
@@ -132,34 +136,31 @@ export function hit(): boolean {
 
 export function stand() {
     dealerMove()
-}
+ }
 
 export function endGame(): string {
     let totalPlayerValue = countHandValue(cardsPlayer)
     let totalDealerValue = countHandValue(cardsDealer)
     let result: string = ""
-    if (totalPlayerValue > 21)
-    {
+
+    if (totalPlayerValue > 21) {
         result = "Lose";
     }
-    else if(totalPlayerValue <= 21)
-    {
-        if (totalDealerValue > 21)
-        {
+    else if (totalPlayerValue <= 21) {
+        if (totalDealerValue > 21) {
+            result = "Win";
+
+        }
+        else if (totalPlayerValue > totalDealerValue) {
             result = "Win";
         }
-        else if (totalPlayerValue > totalDealerValue)
-        {
-            result = "Win";
-        }
-        else if (totalPlayerValue == totalDealerValue)
-        {
+        else if (totalPlayerValue == totalDealerValue) {
             result = "Draw";
         }
-        else if (totalPlayerValue < totalDealerValue)
-        {
+        else if (totalPlayerValue < totalDealerValue) {
             result = "Lose";
         }
     }
+   
     return result
 }
