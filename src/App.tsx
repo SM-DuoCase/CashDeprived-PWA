@@ -20,6 +20,7 @@ function App() {
           <Route path='/' element={<StartScreenContent />} />
           <Route path='/menu' element={<Menu />} />
           <Route path='/losses' element={<LossesScreen />} />
+          <Route path='/blackjack' element={<BlackjackScreen/>} />
         </Routes>
         <Bottombar />
       </div>

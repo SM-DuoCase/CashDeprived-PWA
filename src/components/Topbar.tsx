@@ -12,6 +12,9 @@ const Topbar = () => {
   else if(window.location.pathname.toLocaleLowerCase() == "/losses"){
     TopbarContent = TopBarLosses();
   }
+  else if(window.location.pathname.toLocaleLowerCase() == "/blackjack"){
+    TopbarContent = TopBarProgress()
+  }
   else {
     TopbarContent = TopBarTitle()
   }
