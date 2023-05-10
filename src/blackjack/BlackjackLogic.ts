@@ -5,6 +5,7 @@ export var cardsPlayer: Card[] = []
 export var cardsDealer: Card[] = []
 
 export const event = new Event("updateUI");
+export const gamestatus = new Event("endGame");
 
 document.dispatchEvent(event)
 
@@ -55,6 +56,7 @@ function generateDeck(): Card[] {
 }
 
 function giveCard(cards: Card[], amount: number, flipped: boolean): Card[] {
+    
     for (let i = 0; i < amount; i++) {
         let random = Math.floor(Math.random() * deck.length)
         let _card = deck[random];
@@ -63,7 +65,9 @@ function giveCard(cards: Card[], amount: number, flipped: boolean): Card[] {
         cards.push(_card)
         document.dispatchEvent(event)
         console.log(_card.symbol, _card.type)
+        
     }
+
     return cards
 }
 
@@ -91,17 +95,14 @@ export function startRound() {
 }
 
 function dealerMove() {
-    setTimeout(() => {
         giveCard(cardsDealer, 1, true)
         console.log("dealer: ", countHandValue(cardsDealer))
-        setTimeout(() => {
+        
             while (countHandValue(cardsDealer) < 17) {
                 giveCard(cardsDealer, 1, true)
                 console.log("dealer: ", countHandValue(cardsDealer))
             }
-            gameStatus()
-        }, 1000);
-    }, 1000);
+            //enable here
     return
 }
 
@@ -161,6 +162,8 @@ export function endGame(): string {
             result = "Lose";
         }
     }
+    document.dispatchEvent(gamestatus);
+
    
     return result
 }
