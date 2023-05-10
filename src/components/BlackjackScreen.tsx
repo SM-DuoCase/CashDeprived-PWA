@@ -1,43 +1,33 @@
 import { useEffect, useRef, useState } from 'react'
-import { startRound, hit, stand, playerMove, endGame, cardsDealer, cardsPlayer, countHandValue, event, gameStatus } from '../blackjack/BlackjackLogic'
-import { Card } from '../blackjack/CardModel'
+import { startRound, hit, stand, playerMove, endGame, cardsDealer, cardsPlayer, countHandValue, event } from '../blackjack/BlackjackLogic'
 import '../index.css'
 import CardMaker from './blackjackContent/CardMaker'
 
+const BlackjackScreen = () => {
 
-
-function hitButton() {
-  if (!hit()) {
-    standButton()
+  function startGame() {
+    startRound()
+    if (!playerMove()) {
+      standButton()
+    }
   }
-}
 
-
-function restartButton() {
-  startGame()
-}
-
-function standButton() {
-  stand()
-  console.log(endGame())
-}
-
-function startGame() {
-  startRound()
-  if (!playerMove()) {
-    standButton()
+  function hitButton() {
+    if (!hit()) {
+      standButton()
+    }
   }
-}
+  
+  function standButton() {
+    stand()
+    console.log(endGame())
+  }
+  
+  function log() {
+    console.log(countHandValue(cardsDealer))
+    console.log(countHandValue(cardsPlayer))
+  }
 
-function log() {
-  console.log(countHandValue(cardsDealer))
-  console.log(countHandValue(cardsPlayer))
-}
-
-startGame()
-
-
-function BlackjackScreen() {
   const [countDealer, setCountDealer] = useState(countHandValue(cardsDealer))
   const [countPlayer, setCountPlayer] = useState(countHandValue(cardsPlayer))
   const [_cardsDealer, setCardsDealer] = useState(cardsDealer)
@@ -48,13 +38,14 @@ function BlackjackScreen() {
   // Start
   const [isEnabled, setEnableStart] = useState(false);
 
-  function StartGame() {
+  function StartGameBtns() {
     setEnableHitStand(false);
     setEnableStart(true);
   }
 
 function standClick(){
   setEnableHitStand(true);
+  setEnableStart(false)
 }
 
   useEffect(() => {
@@ -62,31 +53,31 @@ function standClick(){
       "updateUI",
       (e) => {
         setCountDealer(countHandValue(cardsDealer))
-        setEnableStart(gameStatus)
         setCountPlayer(countHandValue(cardsPlayer))
         setCardsDealer(cardsDealer)
         setCardsPlayer(cardsPlayer)
       },
       false
     );
+
+    document.addEventListener(
+      'endGame',
+      (e) => {
+        setEnableHitStand(true)
+        setEnableStart(false)
+      }
+    );
   }, [])
 
+
+
   const listCardsDealer = _cardsDealer.map((card) =>
-    //find card based on card.symbol
-    // insert image based on ^
-    // <p className='mr-3 bg-white text-black p-2'>{card.type}</p>
-
     <CardMaker {...card} />
-
   )
 
   const listCardsPlayer = _cardsPlayer.map((card) =>
-    //find card based on card.symbol
-    // insert image based on ^
-    // <p className='mr-3 bg-white text-black p-2'>{card.type}</p>
     <CardMaker {...card} />
   )
-
 
   return (
     <div className='w-full h-full'>
@@ -115,30 +106,25 @@ function standClick(){
         </div>
       </div>
 
-
       <div className='flex my-4  text-2xl'>
-
         <div className="flex justify-center space-x-3 w-auto">
           <p className=''>Wager:</p>
           <input type="text" id="voice-search" className="bg-progressGreen bg-opacity-[45%] border-2 border-progressGreen text-white rounded-lg block w-1/3 text-right pr-3 py-0" placeholder="0" required />
-          <button disabled={isEnabled} id='startBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={StartGame} >
+          <button disabled={isEnabled} id='startBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={()=> {StartGameBtns(); startGame();}} >
             Start
           </button>
-
         </div>
-
       </div>
 
       <div className='text-center space-x-3'>
-        <button disabled={isDisabled} id='hitBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={hitButton}>
+        <button disabled={isDisabled} id='hitBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => {hitButton(); console.log(isEnabled)}}>
           Hit
         </button>
         <button disabled={isDisabled} id='standBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => {standButton(); standClick();}}>
           Stand
         </button>
       </div>
-      <div className='mt-3'>
-        <button className='mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={restartButton}>restart</button>
+      <div className='mt-3 text-center'>
         <button className='mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={log}>log</button>
       </div>
 
