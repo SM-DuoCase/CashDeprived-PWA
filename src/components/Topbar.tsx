@@ -6,14 +6,12 @@ import TopBarLosses from './topbarContent/TopBarLosses';
 const Topbar = () => {
 
   let TopbarContent;
-  if (window.location.pathname.toLocaleLowerCase() == "/menu") {
+  const loc = window.location.pathname.toLocaleLowerCase();
+  if (loc == "/menu" || loc == "/blackjack") {
     TopbarContent = TopBarProgress()
   }
-  else if(window.location.pathname.toLocaleLowerCase() == "/losses"){
+  else if(loc == "/losses"){
     TopbarContent = TopBarLosses();
-  }
-  else if(window.location.pathname.toLocaleLowerCase() == "/blackjack"){
-    TopbarContent = TopBarProgress()
   }
   else {
     TopbarContent = TopBarTitle()

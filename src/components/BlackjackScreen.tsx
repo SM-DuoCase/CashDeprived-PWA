@@ -7,22 +7,17 @@ const BlackjackScreen = () => {
 
   function startGame() {
     startRound()
-    if (!playerMove()) {
-      standButton()
-    }
   }
 
   function hitButton() {
-    if (!hit()) {
-      standButton()
-    }
+    hit()
   }
-  
+
   function standButton() {
     stand()
-    console.log(endGame())
+    // console.log(endGame())
   }
-  
+
   function log() {
     console.log(countHandValue(cardsDealer))
     console.log(countHandValue(cardsPlayer))
@@ -43,10 +38,12 @@ const BlackjackScreen = () => {
     setEnableStart(true);
   }
 
-function standClick(){
-  setEnableHitStand(true);
-  setEnableStart(false)
-}
+  function standClick() {
+    setEnableHitStand(true);
+    setEnableStart(false)
+  }
+
+
 
   useEffect(() => {
     document.addEventListener(
@@ -65,6 +62,7 @@ function standClick(){
       (e) => {
         setEnableHitStand(true)
         setEnableStart(false)
+        console.log(endGame())
       }
     );
   }, [])
@@ -110,17 +108,17 @@ function standClick(){
         <div className="flex justify-center space-x-3 w-auto">
           <p className=''>Wager:</p>
           <input type="text" id="voice-search" className="bg-progressGreen bg-opacity-[45%] border-2 border-progressGreen text-white rounded-lg block w-1/3 text-right pr-3 py-0" placeholder="0" required />
-          <button disabled={isEnabled} id='startBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={()=> {StartGameBtns(); startGame();}} >
+          <button disabled={isEnabled} id='startBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => { StartGameBtns(); startGame(); }} >
             Start
           </button>
         </div>
       </div>
 
       <div className='text-center space-x-3'>
-        <button disabled={isDisabled} id='hitBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => {hitButton(); console.log(isEnabled)}}>
+        <button disabled={isDisabled} id='hitBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => { hitButton();}}>
           Hit
         </button>
-        <button disabled={isDisabled} id='standBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => {standButton(); standClick();}}>
+        <button disabled={isDisabled} id='standBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => { standButton(); standClick(); }}>
           Stand
         </button>
       </div>

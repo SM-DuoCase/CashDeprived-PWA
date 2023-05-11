@@ -1,4 +1,5 @@
 import '../index.css'
+import { getLostMoney, calcPercentPar } from "../money/MoneyManager"
 
 const LossesScreen = () => {
     let percent = "25%";
@@ -26,7 +27,7 @@ const LossesScreen = () => {
         <div className=' mb-36'>
             <div className='text-center mb-4'>
                 <p className='text-xl'>Total Losses:</p>
-                <p className='text-2xl'>250,00</p>
+                <p className='text-2xl'>{getLostMoney()}</p>
             </div>
             <div className='flex justify-center h-screen '>
                 {/* Elke 4 is  */}
@@ -49,7 +50,7 @@ const LossesScreen = () => {
                 </div>
                 <div className='w-auto mx-2  flex justify-center'>
                     <div className="h-full w-6 bg-gray-200 rounded-full">
-                        <div className="h-6 bg-progressGreen rounded-full" style={{ height: percent }} >
+                        <div className="h-6 bg-progressGreen rounded-full" style={{ height: calcPercentPar(1000.00, 0.00)+"%"  }} >
 
                         </div>
                     </div>
