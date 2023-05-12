@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import "../../index.css"
-import { getBalance, calcPercentPar, getLoss, formatter, getLostMoney } from "../../money/MoneyManager"
+import { getBalance, calcPercentPar, getLoss, formatter } from "../../money/MoneyManager"
 import Progressbar from "./Progressbar"
 
 const TopBarProgress = () => {
@@ -40,9 +40,6 @@ const TopBarProgress = () => {
         );
 
     }, [])
-
-
-
 
     return (
         <div className="p-4 pb-4">
