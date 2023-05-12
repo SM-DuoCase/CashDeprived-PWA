@@ -1,3 +1,5 @@
+import {event} from '../blackjack/BlackjackLogic'
+
 type Player = {
     name: string,
     balance: number,
@@ -69,16 +71,33 @@ export function getLoss(): number {
     return player.totalLost;
 }
 
+
+export function changeLoss(amount: number){
+    const player: Player = getPlayerObject()
+    player.lostToday += amount
+    player.totalLost += amount
+    savePlayerObject(player)
+}
+
+export function changeBlackJackLoss(){
+
+}
+
+
+//////////////////////////////////////////
+
 export function addMoney(amount: number) {
     const player: Player = getPlayerObject()
     player.balance += amount;
     savePlayerObject(player)
+    document.dispatchEvent(event)
 }
 
 export function removeMoney(amount: number) {
     const player: Player = getPlayerObject()
     player.balance -= amount;
     savePlayerObject(player)
+    document.dispatchEvent(event)
 }
 
 //////////////////////////////////////////

@@ -1,16 +1,15 @@
 
+import { useEffect, useState } from "react";
 import "../../index.css"
-import { getBalance, calcPercentPar, getLoss, formatter } from "../../money/MoneyManager"
+import { getBalance, calcPercentPar, getLoss, formatter, getLostMoney } from "../../money/MoneyManager"
 import Progressbar from "./Progressbar"
 
 const TopBarProgress = () => {
-    //calculate percent basded on loss
-    //also send loss? or get it in the component itself?
-
-
 
     let goalStart: number = 0;
     let goalMax: number = 0;
+
+    const [balance, setPlayerBalance] = useState(getBalance)
 
     let Moneygoals: Array<number> = [];
     const increment = 62.50;
@@ -27,9 +26,21 @@ const TopBarProgress = () => {
             goalMax = Moneygoals[index]
             break;
         }
-
     }
-    let ProggressBar = Progressbar(calcPercentPar(goalMax, goalStart));
+    const ProggressBar = Progressbar(calcPercentPar(goalMax, goalStart));
+
+    useEffect(() => {
+        document.addEventListener(
+            "updateUI",
+            (e) => {
+                setPlayerBalance(getBalance())
+
+            },
+            false
+        );
+
+    }, [])
+
 
 
 
@@ -46,7 +57,7 @@ const TopBarProgress = () => {
             </div>
             {/* Slightly bigger looks better */}
             <div className="flex justify-center text-2xl font-medium">
-                <span className="ml-1 text-white">{getBalance()}</span>
+                <span className="ml-1 text-white">{balance}</span>
             </div>
         </div>
     )
@@ -55,41 +66,49 @@ const TopBarProgress = () => {
 
 export default TopBarProgress
 
-function useEffect(arg0: () => void, arg1: never[]) {
-    throw new Error("Function not implemented.")
-}
+// function useEffect(arg0: () => void, arg1: never[]) {
+//     throw new Error("Function not implemented.")
+// }
 
 
-function setCountDealer(arg0: any) {
-    throw new Error("Function not implemented.")
-}
+// function setCountDealer(arg0: any) {
+//     throw new Error("Function not implemented.")
+// }
 
 
-function countHandValue(cardsDealer: any): any {
-    throw new Error("Function not implemented.")
-}
+// function countHandValue(cardsDealer: any): any {
+//     throw new Error("Function not implemented.")
+// }
 
 
-function setCountPlayer(arg0: any) {
-    throw new Error("Function not implemented.")
-}
+// function setCountPlayer(arg0: any) {
+//     throw new Error("Function not implemented.")
+// }
 
 
-function setCardsDealer(cardsDealer: any) {
-    throw new Error("Function not implemented.")
-}
+// function setCardsDealer(cardsDealer: any) {
+//     throw new Error("Function not implemented.")
+// }
 
 
-function setCardsPlayer(cardsPlayer: any) {
-    throw new Error("Function not implemented.")
-}
+// function setCardsPlayer(cardsPlayer: any) {
+//     throw new Error("Function not implemented.")
+// }
 
 
-function setEnableHitStand(arg0: boolean) {
-    throw new Error("Function not implemented.")
-}
+// function setEnableHitStand(arg0: boolean) {
+//     throw new Error("Function not implemented.")
+// }
 
 
-function setEnableStart(arg0: boolean) {
-    throw new Error("Function not implemented.")
-}
+// function setEnableStart(arg0: boolean) {
+//     throw new Error("Function not implemented.")
+// }
+// function useState(getBalance: () => string): [any, any] {
+//     throw new Error("Function not implemented.");
+// }
+
+// function useRef(arg0: null) {
+//     throw new Error("Function not implemented.");
+// }
+

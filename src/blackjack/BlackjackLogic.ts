@@ -1,3 +1,4 @@
+import { addMoney, changeLoss } from "../money/MoneyManager";
 import { Card, CardType } from "./CardModel"
 
 var deck: Card[] = []
@@ -5,6 +6,7 @@ export var cardsPlayer: Card[] = []
 export var cardsDealer: Card[] = []
 
 export const event = new Event("updateUI");
+export const damn = new Event("damn");
 export const gamestatus = new Event("endGame");
 
 document.dispatchEvent(event)
@@ -130,7 +132,6 @@ export function checkBlackjack(hit: boolean) {
 export function playerMove() {
     if (countHandValue(cardsPlayer) > 21) {
         console.log("Bust!" + countHandValue(cardsPlayer));
-        //stand(cardsDealer, cardsPlayer)
         document.dispatchEvent(gamestatus);
         return;
     }
@@ -159,27 +160,40 @@ export function stand() {
     dealerMove()
 }
 
-export function endGame(): string {
+export function endGame(wager: number): string {
     let totalPlayerValue = countHandValue(cardsPlayer)
     let totalDealerValue = countHandValue(cardsDealer)
     let result: string = ""
 
     if (totalPlayerValue > 21) {
         result = "Lose";
+        changeLoss(wager)
     }
     else if (totalPlayerValue <= 21) {
         if (totalDealerValue > 21) {
             result = "Win";
+            addMoney(wager * 2)
         }
         else if (totalPlayerValue > totalDealerValue) {
-            result = "Win";
+            if (totalPlayerValue == 21) {
+                addMoney(wager + wager * 0.5)
+                result = "Win";
+            }
+            else {
+                result = "Win";
+                addMoney(wager * 2)
+            }
         }
         else if (totalPlayerValue == totalDealerValue) {
             result = "Draw";
+            addMoney(wager)
         }
         else if (totalPlayerValue < totalDealerValue) {
             result = "Lose";
+            changeLoss(wager)
         }
     }
+    document.dispatchEvent(damn);
+    console.log(result)
     return result
 }
