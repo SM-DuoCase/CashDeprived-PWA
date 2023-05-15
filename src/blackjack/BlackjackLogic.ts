@@ -6,7 +6,7 @@ export var cardsPlayer: Card[] = []
 export var cardsDealer: Card[] = []
 
 export const event = new Event("updateUI");
-export const damn = new Event("damn");
+export const cashCheck = new Event("cashCheck");
 export const gamestatus = new Event("endGame");
 
 document.dispatchEvent(event)
@@ -193,7 +193,7 @@ export function endGame(wager: number): string {
             changeLoss(wager)
         }
     }
-    document.dispatchEvent(damn);
+    document.dispatchEvent(cashCheck);
     console.log(result)
     return result
 }

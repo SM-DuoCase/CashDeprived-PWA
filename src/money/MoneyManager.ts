@@ -93,11 +93,19 @@ export function addMoney(amount: number) {
     document.dispatchEvent(event)
 }
 
-export function removeMoney(amount: number) {
+export function removeMoney(amount: number): boolean {
     const player: Player = getPlayerObject()
-    player.balance -= amount;
-    savePlayerObject(player)
-    document.dispatchEvent(event)
+    if((player.balance - amount) < 0){
+        return false
+    }
+    else{
+        player.balance -= amount;
+        savePlayerObject(player)
+        document.dispatchEvent(event)
+        return true
+    }
+
+    
 }
 
 //////////////////////////////////////////

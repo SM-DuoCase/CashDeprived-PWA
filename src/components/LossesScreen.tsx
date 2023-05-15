@@ -1,23 +1,21 @@
+import { useState } from 'react';
 import '../index.css'
-import { getLostMoney, calcPercentPar } from "../money/MoneyManager"
+import { getLostMoney, calcPercentPar, formatter } from "../money/MoneyManager"
 
 const LossesScreen = () => {
-    let percent = "25%";
-    percent = "50%";
 
     function moneyGoals() {
         let percentList = [];
         let amount = 0.00;
-        let money = (Math.round(amount * 100) / 100).toFixed(2);
-        for (let index = 0; index < 9; index++) {
+        for (let index = 0; index < 17; index++) {
+            let money = formatter.format(amount)
             if (index === 0) {
-                percentList.push(<p className=''>{money}</p>);
+                percentList.push(<p className='h-[6.25%]'>{money}</p>);
             }
             else {
-                percentList.push(<p className='mt-[20%]'>{money}</p>);
+                percentList.push(<p className='h-[6.25%] border-dashed border-t-2 border-gray-400'>{money}</p>);
             }
             amount += 62.50;
-            money = (Math.round(amount * 100) / 100).toFixed(2);
         }
 
         return percentList;
@@ -31,32 +29,21 @@ const LossesScreen = () => {
             </div>
             <div className='flex justify-center h-screen '>
                 {/* Elke 4 is  */}
-                <div className='w-1/3  text-right'>
+                <div className='w-1/3 text-right'>
                     {moneyGoals()}
-                    {/* 0% */}
-                    {/* <p className='mt-[20%]'>0,00</p>
-                    <p className='mt-[20%]'>0,00</p>
-                    <p className='mt-[20%]'>0,00</p>
-                    <p className='mt-[20%]'>0,00</p> */}
-                    {/* 25% */}
-                    {/* <p className='mt-[20%]'>250,00</p>
-                    <p className='mt-[20%]'>0,00</p>
-                    <p className='mt-[20%]'>0,00</p>
-                    <p className='mt-[20%]'>0,00</p> */}
-                    {/* 50% */}
-                    {/* <p className='mt-[20%]'>500,00</p>
-                    <p className='mt-[20%]'>0,00</p>
-                    <p className='mt-[20%]'>0,00</p> */}
                 </div>
-                <div className='w-auto mx-2  flex justify-center'>
+                <div className='w-auto mx-2 flex justify-center'>
                     <div className="h-full w-6 bg-gray-200 rounded-full">
-                        <div className="h-6 bg-progressGreen rounded-full" style={{ height: calcPercentPar(1000.00, 0.00)+"%"  }} >
+                        <div className="bg-progressGreen rounded-full" style={{ height: calcPercentPar(1000.00, 0.00) + .5 + "%" }} >
 
                         </div>
+                        {/* <div className="h-[6.25%] bg-yellow-600 rounded-full" >
+
+                        </div> */}
                     </div>
                 </div>
                 <div className='w-1/3 '>
-                    {moneyGoals()}
+                    {/* {moneyGoals()} */}
                 </div>
 
 

@@ -12,7 +12,7 @@ const Progressbar = (percent: number) => {
 
     useEffect(() => {
         document.addEventListener(
-            "damn",
+            "cashCheck",
             (e) => {
                 setLostMoney(getLostMoney())
             },

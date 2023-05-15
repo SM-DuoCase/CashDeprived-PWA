@@ -8,8 +8,10 @@ const BlackjackScreen = () => {
 
   function startGame() {
     //check if you can afford...
-    removeCash();
-    startRound()
+    if(removeCash()){
+      startRound()
+      StartGameBtns()
+    }    
     
   }
 
@@ -71,10 +73,10 @@ const BlackjackScreen = () => {
     );
   }, [])
 
-  function removeCash() {
+  function removeCash():boolean {
     let wagerAmount = document.getElementById("wager") as unknown as HTMLInputElement;
     wagerMoney = wagerAmount.valueAsNumber
-    removeMoney(wagerAmount.valueAsNumber)
+    return removeMoney(wagerAmount.valueAsNumber)
   }
   const listCardsDealer = _cardsDealer.map((card) =>
     <CardMaker {...card} />
@@ -115,7 +117,7 @@ const BlackjackScreen = () => {
         <div className="flex justify-center space-x-3 w-auto">
           <p className=''>Wager:</p>
           <input type="number" min='0'defaultValue={0} id="wager" className="bg-progressGreen bg-opacity-[45%] border-2 border-progressGreen text-white rounded-lg block w-1/3 text-right pr-3 py-0" placeholder="0" required />
-          <button disabled={isEnabled} id='startBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => { StartGameBtns(); startGame(); }} >
+          <button disabled={isEnabled} id='startBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => { startGame(); }} >
             Start
           </button>
         </div>
