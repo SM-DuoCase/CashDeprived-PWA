@@ -175,7 +175,7 @@ export function endGame(wager: number): string {
             addMoney(wager * 2)
         }
         else if (totalPlayerValue > totalDealerValue) {
-            if (totalPlayerValue == 21) {
+            if (totalPlayerValue == 21 && cardsPlayer.length > 2) {
                 addMoney(wager + wager * 0.5)
                 result = "Win";
             }

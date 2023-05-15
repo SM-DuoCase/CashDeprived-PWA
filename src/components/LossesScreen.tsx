@@ -37,9 +37,6 @@ const LossesScreen = () => {
                         <div className="bg-progressGreen rounded-full" style={{ height: calcPercentPar(1000.00, 0.00) + .5 + "%" }} >
 
                         </div>
-                        {/* <div className="h-[6.25%] bg-yellow-600 rounded-full" >
-
-                        </div> */}
                     </div>
                 </div>
                 <div className='w-1/3 '>

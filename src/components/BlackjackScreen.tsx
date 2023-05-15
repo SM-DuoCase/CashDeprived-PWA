@@ -131,9 +131,9 @@ const BlackjackScreen = () => {
           Stand
         </button>
       </div>
-      <div className='mt-3 text-center'>
+      {/* <div className='mt-3 text-center'>
         <button className='mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={log}>log</button>
-      </div>
+      </div> */}
 
     </div>
   )
