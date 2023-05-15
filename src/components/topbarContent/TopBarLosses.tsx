@@ -1,4 +1,5 @@
 import "../../index.css"
+import { getBalance } from "../../money/MoneyManager"
 
 const TopBarLosses = () => {
 
@@ -10,7 +11,7 @@ const TopBarLosses = () => {
                         <span className="text-xl">Current Balance:</span>
                     </div>
                     <div className="text-center">
-                        <span className="text-2xl">0,00</span>
+                        <span className="text-2xl">{getBalance()}</span>
                     </div>
                 </div>
                 <div>

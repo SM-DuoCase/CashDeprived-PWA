@@ -1,3 +1,4 @@
+import { addMoney, changeLoss } from "../money/MoneyManager";
 import { Card, CardType } from "./CardModel"
 
 var deck: Card[] = []
@@ -5,6 +6,7 @@ export var cardsPlayer: Card[] = []
 export var cardsDealer: Card[] = []
 
 export const event = new Event("updateUI");
+export const cashCheck = new Event("cashCheck");
 export const gamestatus = new Event("endGame");
 
 document.dispatchEvent(event)
@@ -56,7 +58,7 @@ function generateDeck(): Card[] {
 }
 
 function giveCard(cards: Card[], amount: number, flipped: boolean): Card[] {
-    
+
     for (let i = 0; i < amount; i++) {
         let random = Math.floor(Math.random() * deck.length)
         let _card = deck[random];
@@ -65,7 +67,6 @@ function giveCard(cards: Card[], amount: number, flipped: boolean): Card[] {
         cards.push(_card)
         document.dispatchEvent(event)
         console.log(_card.symbol, _card.type)
-        
     }
 
     return cards
@@ -73,7 +74,6 @@ function giveCard(cards: Card[], amount: number, flipped: boolean): Card[] {
 
 function firstRound() {
     giveCard(cardsDealer, 1, true)
-
     //giveCard(cardsPlayer, 1, true)
     giveCard(cardsPlayer, 2, true)
 
@@ -90,80 +90,110 @@ export function startRound() {
     console.log("player: ", cardsPlayer)
     console.log("dealer: ", countHandValue(cardsDealer))
     console.log("dealer: ", cardsDealer)
+    checkBlackjack(false)
     //return playerMove(cardsDealer, cardsPlayer)
-    
 }
 
 function dealerMove() {
+
+    giveCard(cardsDealer, 1, true)
+    console.log("dealer: ", countHandValue(cardsDealer))
+    while (countHandValue(cardsDealer) < 17) {
         giveCard(cardsDealer, 1, true)
         console.log("dealer: ", countHandValue(cardsDealer))
-        
-            while (countHandValue(cardsDealer) < 17) {
-                giveCard(cardsDealer, 1, true)
-                console.log("dealer: ", countHandValue(cardsDealer))
-            }
-            //enable here
+    }
+    document.dispatchEvent(gamestatus);
+
     return
 }
 
-export function gameStatus(){
-    return false;
+export function checkBlackjack(hit: boolean) {
+    if (countHandValue(cardsPlayer) == 21) {
+        console.log("je hebt 21")
+        if (cardsPlayer.length === 2 && countHandValue(cardsDealer) >= 10 && !hit) {
+            giveCard(cardsDealer, 1, true)
+            document.dispatchEvent(gamestatus);
+            return;
+        }
+        else if (cardsPlayer.length > 2) {
+            if (hit) {
+                dealerMove()
+            }
+            return;
+        }
+        else {
+            console.log("Blackjack! " + countHandValue(cardsPlayer));
+            document.dispatchEvent(gamestatus);
+            return;
+        }
+    }
 }
 
-export function playerMove(): boolean {
+export function playerMove() {
     if (countHandValue(cardsPlayer) > 21) {
         console.log("Bust!" + countHandValue(cardsPlayer));
-        //stand(cardsDealer, cardsPlayer)
-        return false
+        document.dispatchEvent(gamestatus);
+        return;
     }
     else if (countHandValue(cardsPlayer) < 21) {
+        giveCard(cardsPlayer, 1, true)
         console.log("Current: " + countHandValue(cardsPlayer))
-        return true
-    }
-    else if (countHandValue(cardsPlayer) == 21) {
-        console.log("Blackjack!" + countHandValue(cardsPlayer));
-        //stand(cardsDealer, cardsPlayer)
-        return false
+        if (countHandValue(cardsPlayer) > 21) {
+            document.dispatchEvent(gamestatus);
+            return;
+        }
+        checkBlackjack(true)
+        return;
     }
     else {
-        return false
+        checkBlackjack(true)
     }
+    return;
 }
 
-export function hit(): boolean {
-    giveCard(cardsPlayer, 1, true)
-    return playerMove()
+export function hit() {
+    playerMove()
+    return
 }
 
 export function stand() {
     dealerMove()
- }
+}
 
-export function endGame(): string {
+export function endGame(wager: number): string {
     let totalPlayerValue = countHandValue(cardsPlayer)
     let totalDealerValue = countHandValue(cardsDealer)
     let result: string = ""
 
     if (totalPlayerValue > 21) {
         result = "Lose";
+        changeLoss(wager)
     }
     else if (totalPlayerValue <= 21) {
         if (totalDealerValue > 21) {
             result = "Win";
-
+            addMoney(wager * 2)
         }
         else if (totalPlayerValue > totalDealerValue) {
-            result = "Win";
+            if (totalPlayerValue == 21 && cardsPlayer.length > 2) {
+                addMoney(wager + wager * 0.5)
+                result = "Win";
+            }
+            else {
+                result = "Win";
+                addMoney(wager * 2)
+            }
         }
         else if (totalPlayerValue == totalDealerValue) {
             result = "Draw";
+            addMoney(wager)
         }
         else if (totalPlayerValue < totalDealerValue) {
             result = "Lose";
+            changeLoss(wager)
         }
     }
-    document.dispatchEvent(gamestatus);
-
-   
+    document.dispatchEvent(cashCheck);
+    console.log(result)
     return result
 }
