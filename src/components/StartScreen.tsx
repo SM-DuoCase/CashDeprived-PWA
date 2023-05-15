@@ -44,7 +44,7 @@ const StartScreenContent = () => {
                 </div>
             </div>
             <div className='flex mt-16 justify-center'>
-                <a href='/Menu' className='bg-orange-600 flex h-16 w-56 rounded-md'>
+                <a href='/#/menu' className='bg-orange-600 flex h-16 w-56 rounded-md'>
                     <div className='w-12 h-12 ml-2 my-2'>
                         <img src={digid} />
                     </div>

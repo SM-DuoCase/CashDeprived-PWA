@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="public/manifest.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/5368e4b441.js" crossorigin="anonymous"></script>
     <title>CashDeprived</title>
+    <meta name="theme-color" content="#417505"/>
   </head>
   <body>
     <div id="root"></div>
@@ -13,3 +15,19 @@
     
   </body>
 </html>
+<!-- 
+<script>
+  //See if the browser supports Service Workers, if so try to register one
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("service-worker.js").then(function(registering){
+      // Registration was successful
+      console.log("Browser: Service Worker registration is successful with the scope",registering.scope);
+    }).catch(function(error){
+      //The registration of the service worker failed
+      console.log("Browser: Service Worker registration failed with the error",error);
+    });
+  } else {
+    //The registration of the service worker failed
+    console.log("Browser: I don't support Service Workers :(");
+  }
+</script> -->
