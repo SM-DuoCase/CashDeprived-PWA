@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTimesBlackJackLoss } from "../money/MoneyManager";
 
-type MessageCardProps = {
-    shower: boolean;
-    type: string;
-};
-
 const MessageCard = () => {
     const [show, setShow] = useState(false);
 
@@ -22,8 +17,6 @@ const MessageCard = () => {
     if (getTimesBlackJackLoss() % 5 === 0 && getTimesBlackJackLoss() != 0) {
         text = "You just lost for the " + getTimesBlackJackLoss() + "th time."
     }
-
-    // = "You suck dick!, Like penis, cock and shaft no balls tho, that shit gay"
 
     function checkStreak() {
         if (getTimesBlackJackLoss() % 5 === 0 && getTimesBlackJackLoss() != 0) {

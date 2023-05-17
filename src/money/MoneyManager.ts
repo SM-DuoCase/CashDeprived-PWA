@@ -117,7 +117,6 @@ export function removeMoney(amount: number): boolean {
         document.dispatchEvent(event)
         return true
     }
-
     
 }
 

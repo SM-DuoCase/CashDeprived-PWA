@@ -40,9 +40,6 @@ const BlackjackScreen = () => {
   // Start
   const [isEnabled, setEnableStart] = useState(false);
 
-  const [messageState, setMessageState] = useState(false)
-  const [messageText, setMessageText] = useState("")
-
   let wagerMoney = 0;
 
   function StartGameBtns() {
@@ -54,11 +51,6 @@ const BlackjackScreen = () => {
     setEnableHitStand(true);
     setEnableStart(false)
   }
-
-
-
-
-
 
   useEffect(() => {
     document.addEventListener(
@@ -96,8 +88,6 @@ const BlackjackScreen = () => {
   const listCardsPlayer = _cardsPlayer.map((card) =>
     <CardMaker {...card} />
   )
-
-
 
   return (
     <div className='w-full h-full'>

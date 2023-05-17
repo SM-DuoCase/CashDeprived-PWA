@@ -171,8 +171,6 @@ export function endGame(wager: number): string {
         changeLoss(wager)
         changeBlackJackLoss(wager)
         document.dispatchEvent(lostGame);
-
-
     }
     else if (totalPlayerValue <= 21) {
         if (totalDealerValue > 21) {
