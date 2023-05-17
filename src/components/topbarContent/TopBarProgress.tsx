@@ -14,7 +14,7 @@ const TopBarProgress = () => {
     let Moneygoals: Array<number> = [];
     const increment = 62.50;
     let goal = 0.00;
-    for (let index = 0; index < 9; index++) {
+    for (let index = 0; index < 17; index++) {
         Moneygoals.push(goal)
         goal += increment;
     }

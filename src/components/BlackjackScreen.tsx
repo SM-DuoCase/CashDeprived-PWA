@@ -2,17 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import { startRound, hit, stand, playerMove, endGame, cardsDealer, cardsPlayer, countHandValue, event } from '../blackjack/BlackjackLogic'
 import '../index.css'
 import CardMaker from './blackjackContent/CardMaker'
-import { getMoney, removeMoney } from '../money/MoneyManager'
+import { getBlackJackLoss, getMoney, getTimesBlackJackLoss, removeMoney } from '../money/MoneyManager'
+import MessageCard from './MessageCard'
 
 const BlackjackScreen = () => {
 
   function startGame() {
     //check if you can afford...
-    if(removeCash()){
+    if (removeCash()) {
       startRound()
       StartGameBtns()
-    }    
-    
+    }
+
   }
 
   function hitButton() {
@@ -39,6 +40,9 @@ const BlackjackScreen = () => {
   // Start
   const [isEnabled, setEnableStart] = useState(false);
 
+  const [messageState, setMessageState] = useState(false)
+  const [messageText, setMessageText] = useState("")
+
   let wagerMoney = 0;
 
   function StartGameBtns() {
@@ -50,6 +54,11 @@ const BlackjackScreen = () => {
     setEnableHitStand(true);
     setEnableStart(false)
   }
+
+
+
+
+
 
   useEffect(() => {
     document.addEventListener(
@@ -69,11 +78,12 @@ const BlackjackScreen = () => {
         setEnableHitStand(true)
         setEnableStart(false)
         endGame(wagerMoney)
+        // checkLossTimes()
       }
     );
   }, [])
 
-  function removeCash():boolean {
+  function removeCash(): boolean {
     let wagerAmount = document.getElementById("wager") as unknown as HTMLInputElement;
     wagerMoney = wagerAmount.valueAsNumber
     return removeMoney(wagerAmount.valueAsNumber)
@@ -86,10 +96,14 @@ const BlackjackScreen = () => {
     <CardMaker {...card} />
   )
 
+
+
   return (
     <div className='w-full h-full'>
 
-      <div className='bg-cardGreen aspect-square rounded-b-full  w-full h-[40vh]'>
+      <MessageCard />
+
+      <div className='bg-cardGreen aspect-square rounded-b-full w-full h-[40vh]'>
         <div className='pt-4'>
 
           <div className='flex'>
@@ -111,12 +125,13 @@ const BlackjackScreen = () => {
           </div>
 
         </div>
+
       </div>
 
       <div className='flex my-4  text-2xl'>
         <div className="flex justify-center space-x-3 w-auto">
           <p className=''>Wager:</p>
-          <input type="number" min='0'defaultValue={0} id="wager" className="bg-progressGreen bg-opacity-[45%] border-2 border-progressGreen text-white rounded-lg block w-1/3 text-right pr-3 py-0" placeholder="0" required />
+          <input type="number" min='0' defaultValue={0} id="wager" className="bg-progressGreen bg-opacity-[45%] border-2 border-progressGreen text-white rounded-lg block w-1/3 text-right pr-3 py-0" placeholder="0" required />
           <button disabled={isEnabled} id='startBtn' className='w-28 mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={() => { startGame(); }} >
             Start
           </button>
@@ -134,6 +149,10 @@ const BlackjackScreen = () => {
       {/* <div className='mt-3 text-center'>
         <button className='mx-0 bg-progressGreen text-2xl py-1 px-6 shadow-btn rounded-md active:translate-y-1 active:shadow-btnClick active:bg-opacity-50 disabled:bg-opacity-50 disabled:text-gray-300' onClick={log}>log</button>
       </div> */}
+      <div className='text-center font-medium mt-4'>
+        <p className='text-xl'>Money Lost on BlackJack:</p>
+        <p className='text-xl '>{getBlackJackLoss()}</p>
+      </div>
 
     </div>
   )

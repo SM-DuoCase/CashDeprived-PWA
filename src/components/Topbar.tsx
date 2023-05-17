@@ -2,15 +2,17 @@ import '../index.css'
 import TopBarTitle from './topbarContent/TopBarTitle'
 import TopBarProgress from './topbarContent/TopBarProgress';
 import TopBarLosses from './topbarContent/TopBarLosses';
+import { useLocation } from 'react-router-dom';
 
 const Topbar = () => {
 
   let TopbarContent;
-  const loc = window.location.pathname.toLocaleLowerCase();
-  if (loc == "/menu" || loc == "/blackjack") {
+  // const loc = window.location.hash.toLocaleLowerCase();
+  const loc = useLocation();
+  if (loc.pathname.toLowerCase() == "/menu" || loc.pathname.toLowerCase()  == "/blackjack") {
     TopbarContent = TopBarProgress()
   }
-  else if(loc == "/losses"){
+  else if(loc.pathname.toLowerCase()  == "/losses"){
     TopbarContent = TopBarLosses();
   }
   else {
