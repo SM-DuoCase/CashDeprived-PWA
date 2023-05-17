@@ -8,6 +8,7 @@ export var cardsDealer: Card[] = []
 export const event = new Event("updateUI");
 export const cashCheck = new Event("cashCheck");
 export const gamestatus = new Event("endGame");
+export const lostGame = new Event("lostGame");
 
 document.dispatchEvent(event)
 
@@ -169,6 +170,8 @@ export function endGame(wager: number): string {
         result = "Lose";
         changeLoss(wager)
         changeBlackJackLoss(wager)
+        document.dispatchEvent(lostGame);
+
 
     }
     else if (totalPlayerValue <= 21) {
@@ -194,6 +197,8 @@ export function endGame(wager: number): string {
             result = "Lose";
             changeLoss(wager)
             changeBlackJackLoss(wager)
+            document.dispatchEvent(lostGame);
+
         }
     }
     document.dispatchEvent(cashCheck);

@@ -11,7 +11,7 @@ const MessageCard = () => {
 
     useEffect(() => {
         document.addEventListener(
-            'cashCheck',
+            'lostGame',
             (e) => {
                 checkStreak()
             }
@@ -19,7 +19,7 @@ const MessageCard = () => {
     }, [])
 
     let text;
-    if (getTimesBlackJackLoss() % 5 === 0) {
+    if (getTimesBlackJackLoss() % 5 === 0 && getTimesBlackJackLoss() != 0) {
         text = "You just lost for the " + getTimesBlackJackLoss() + "th time."
     }
 
@@ -27,7 +27,7 @@ const MessageCard = () => {
     // = "You suck dick!, Like penis, cock and shaft no balls tho, that shit gay"
 
     function checkStreak() {
-        if (getTimesBlackJackLoss() % 5 === 0) {
+        if (getTimesBlackJackLoss() % 5 === 0 && getTimesBlackJackLoss() != 0) {
             setShow(true);
         }
     }
