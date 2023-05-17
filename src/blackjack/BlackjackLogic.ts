@@ -1,4 +1,4 @@
-import { addMoney, changeLoss } from "../money/MoneyManager";
+import { addMoney, changeBlackJackLoss, changeLoss } from "../money/MoneyManager";
 import { Card, CardType } from "./CardModel"
 
 var deck: Card[] = []
@@ -168,6 +168,8 @@ export function endGame(wager: number): string {
     if (totalPlayerValue > 21) {
         result = "Lose";
         changeLoss(wager)
+        changeBlackJackLoss(wager)
+
     }
     else if (totalPlayerValue <= 21) {
         if (totalDealerValue > 21) {
@@ -191,6 +193,7 @@ export function endGame(wager: number): string {
         else if (totalPlayerValue < totalDealerValue) {
             result = "Lose";
             changeLoss(wager)
+            changeBlackJackLoss(wager)
         }
     }
     document.dispatchEvent(cashCheck);

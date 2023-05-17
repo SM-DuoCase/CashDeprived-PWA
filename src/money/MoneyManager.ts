@@ -71,6 +71,15 @@ export function getLoss(): number {
     return player.totalLost;
 }
 
+export function getBlackJackLoss(): string {
+    const player = getPlayerObject()
+    return formatter.format(player.blackjack.lostMoney)
+}
+
+export function getTimesBlackJackLoss(): number {
+    const player = getPlayerObject()
+    return player.blackjack.lostTimes
+}
 
 export function changeLoss(amount: number){
     const player: Player = getPlayerObject()
@@ -79,8 +88,11 @@ export function changeLoss(amount: number){
     savePlayerObject(player)
 }
 
-export function changeBlackJackLoss(){
-
+export function changeBlackJackLoss(amount: number){
+    const player: Player = getPlayerObject()
+    player.blackjack.lostMoney += amount
+    player.blackjack.lostTimes ++
+    savePlayerObject(player)
 }
 
 
