@@ -86,6 +86,7 @@ const BlackjackScreen = () => {
   function removeCash(): boolean {
     let wagerAmount = document.getElementById("wager") as unknown as HTMLInputElement;
     wagerMoney = wagerAmount.valueAsNumber
+    console.log(wagerMoney + ": is wagermoney")
     return removeMoney(wagerAmount.valueAsNumber)
   }
   const listCardsDealer = _cardsDealer.map((card) =>

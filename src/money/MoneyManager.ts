@@ -100,6 +100,7 @@ export function changeBlackJackLoss(amount: number){
 
 export function addMoney(amount: number) {
     const player: Player = getPlayerObject()
+    console.log("added: " + amount)
     player.balance += amount;
     savePlayerObject(player)
     document.dispatchEvent(event)
