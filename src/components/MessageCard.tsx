@@ -23,7 +23,6 @@ const MessageCard = () => {
         text = "You just lost for the " + getTimesBlackJackLoss() + "th time."
     }
 
-
     // = "You suck dick!, Like penis, cock and shaft no balls tho, that shit gay"
 
     function checkStreak() {
