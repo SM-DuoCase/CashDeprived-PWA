@@ -24,7 +24,6 @@ const MessageCard = () => {
     }
 
 
-    // = "You suck dick!, Like penis, cock and shaft no balls tho, that shit gay"
 
     function checkStreak() {
         if (getTimesBlackJackLoss() % 5 === 0 && getTimesBlackJackLoss() != 0) {
